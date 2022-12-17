@@ -1,52 +1,62 @@
 import pandas as pd
 from datetime import datetime
 
+# csvからデータの抽出
+# bed_data{"被験者名":{ 姿勢番号 : {"tag" : [(time,RSSI)] }}}
+columns = ['time', 'EPC', 'RSSI']
 
-# 姿勢0（Left the bed）のファイルの読み込み
+with open('tester_name.txt') as f:
+    names = f.read().splitlines()
 
-# CSVファイルを読み込んで、時刻・タグ名・RSSI値を取り出す
+# 姿勢0の際のファイル読み込み
 file_name = "/home/chiaki/bed-monitoring/csv/log1208/zero.csv"
-df = pd.read_csv(file_name, header=0)
-df = df[["time", "EPC", "RSSI"]]    # time,EPCはString型, RSSIはfloat64型
-df = df.rename(columns={'EPC': 'tag'})
+df_0 = pd.read_csv(file_name, usecols=columns)  # time,EPCはString型, RSSIはfloat64型
 
-# min_timeは最小の時刻
-min_time = df["time"].min()
-min_time = datetime.strptime(min_time, "%H:%M:%S.%f")
-min_time = int(min_time.timestamp())
+# データを保存する辞書    
+bed_data = {}
 
-df["time"] = df["time"].copy()
+for name in names:
+    bed_data[name] = {}
+
+    for i in range(7):
+        if i == 0:
+            df = df_0
+        else:        
+            # CSVファイルを読み込み
+            file_name = f"csv/log1208/{name}_{i}.csv"
+            df = pd.read_csv(file_name, usecols=columns)
+
+        # 最小のtime
+        min_time = df["time"].min()
+        min_time = datetime.strptime(min_time, "%H:%M:%S.%f")
+        min_time = int(min_time.timestamp())
+        
+        # 辞書を作成
+        data = {}
+        for index, row in df.iterrows():
+            tag = row['EPC']
+            # datetimeオブジェクトに変換
+            time = datetime.strptime(row['time'], '%H:%M:%S.%f')
+            # 秒数に変換
+            time = time.timestamp()
+            #小数点以下を切り捨て
+            time = int(time)
+           # 秒数を0～に変更し格納
+            time = time- min_time
+
+            rssi = row['RSSI']
+            if tag not in data: # もしtagに対するデータが一つもなかったら空
+                data[tag] = []
+            data[tag].append((time, rssi))
+
+        bed_data[name][i] = data
+
+print(bed_data["furushima"][0]["E280116060000204AC6AD1FD"])
 
 
-# 時刻を0～秒数で換算
-for i, time in enumerate(df["time"]):
 
-    # datetimeオブジェクトに変換
-    time = datetime.strptime(time, "%H:%M:%S.%f")
+# 各タグ，各時刻の平均値求める
 
-    # 秒数に変換
-    time = time.timestamp()
-
-    #小数点以下を切り捨て
-    time = int(time)
-
-    # 秒数を0～に変更し格納
-    time = time - min_time
-    df.loc[i, "time"] = time #df["time"]はint型になる
-
-
-# EPCごとにtimeとRSSIをまとめる
-tag_grouped = df.groupby('tag')[['time', 'RSSI']]
-
-
-# tag_groupedのデータ内容を確認するためのコード
-tag_groups = tag_grouped.groups
-for group_name, row_indices in tag_groups.items():
-    group_data = df.loc[row_indices]
-    print(f"Group name: {group_name}")
-    print(group_data)
-
-
-# 被験者名->姿勢->タグ名->[時刻,RSSI]の形になるよう形成
+avg_bed_data = {}
 
 
