@@ -51,7 +51,7 @@ for name in names:
 
         bed_data[name][i] = data
 
-print(bed_data["furushima"][0]["E280116060000204AC6AD1FD"])
+print(bed_data["furushima"][1]["E280116060000204AC6AD1FE"])
 
 
 
