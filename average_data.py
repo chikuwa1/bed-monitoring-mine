@@ -38,62 +38,63 @@ for tester in tester_names:
 
         max_second = 0  # maxの秒数
         for tag in tag_names:
-            if bed_data[tester][str(i)][tag][-1][0]:
+            if tag in bed_data[tester][str(i)] and bed_data[tester][str(i)][tag][-1][0]:
                 if max_second < bed_data[tester][str(i)][tag][-1][0]:
                     max_second = bed_data[tester][str(i)][tag][-1][0]
                 else:
                     break
-            
 
         for tag in tag_names:
             if tag not in avg_data:
                 avg_data[tag] = []
             if tag not in count_one_tag:
                 count_one_tag[tag] = []
+            
+            if tag in bed_data[tester][str(i)]:
+                
+                second = 0  # 秒数
+                idx = 0  # データのindex
+                while second <= max_second:
+                    if idx < len(bed_data[tester][str(i)][tag]) :
 
-            while idx < max_second:
-                if idx < len(bed_data[tester][str(i)][tag]):
+                        if bed_data[tester][str(i)][tag][idx][0] == second:
+                            count += 1
+                            sum += bed_data[tester][str(i)][tag][idx][1]
+                            idx += 1
+                        else: 
+                            count_one_tag[tag].append(count)
+                            second += 1
+                            if count == 0: 
+                                avg_data[tag].append(-110.0)
+                            else:
+                                avg_data[tag].append(sum/count)
+                                count = 0
+                                sum = 0.0
 
-                    if bed_data[tester][str(i)][tag][idx][0] == second:
-                        count += 1
-                        sum += bed_data[tester][str(i)][tag][idx][1]
-                        
-                    else:    
+                    else:
                         count_one_tag[tag].append(count)
-
+                        second += 1
                         if count == 0:
                             avg_data[tag].append(-110.0)
-                        
                         else:
                             avg_data[tag].append(sum/count)
                             count = 0
                             sum = 0.0
-                
-                else:
+
+                if count != 0:
                     count_one_tag[tag].append(count)
-                    if count != 0:
-                        avg_data[tag].append(sum/count)
-                        count = 0
-                        sum = 0.0
-                    else:
-                        avg_data[tag].append(-110.0)
-                
-            if count != 0:
-                count_one_tag[tag].append(count)
-                avg_data[tag].append(sum/count)
-                count = 0
-                sum = 0.0
-            
-        tag_count_data[tester][str(i)] = count_one_tag
-        avg_bed_data[tester][str(i)] = avg_data
+                    avg_data[tag].append(sum/count)
+                    count = 0
+                    sum = 0.0
 
-# print(avg_bed_data["furushima"][1]["E280116060000204AC6AD1FE"][0])
-# print(tag_count_data["furushima"][1]["E280116060000204AC6AD1FE"][0])
-# if bed_data["furushima"][1]["E280116060000204AC6AD1FE"][0] == 0:
-#     print(bed_data["furushima"][1]["E280116060000204AC6AD1FE"][0])
+                    # else: print(tester + "の姿勢" + str(i) + "のタグ" + tag + "はデータが存在しません")
 
+            tag_count_data[tester][str(i)] = count_one_tag
+            avg_bed_data[tester][str(i)] = avg_data
 
-
-
+print(avg_bed_data["furushima"]["1"]["E280116060000204AC6AD1FD"])
+print(tag_count_data["furushima"]["1"]["E280116060000204AC6AD1FD"])
+if bed_data["furushima"]["1"]["E280116060000204AC6AD1FD"] == 0:
+    print(bed_data["furushima"]["1"]["E280116060000204AC6AD1FD"][0])
 
 
