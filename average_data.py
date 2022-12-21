@@ -2,7 +2,7 @@ import json
 
 posture_num = 7 # 姿勢数
 
-non_data_rssi = -110.0 # tagが無反応だった場合のrssi値
+non_data_rssi = -105.0 # tagが無反応だった場合のrssi値
 
 with open("bed_data.json", "r") as json_file:
     bed_data = json.load(json_file)
