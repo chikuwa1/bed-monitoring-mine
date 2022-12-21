@@ -91,4 +91,8 @@ for tester in tester_names:
             tag_count_data[tester][str(i)] = count_one_tag
             avg_bed_data[tester][str(i)] = avg_data
 
+with open("avg_bed_data.json", "w") as json_file:
+    json.dump(avg_bed_data, json_file)
 
+with open("tag_sec_count_data.json", "w") as json_file:
+    json.dump(tag_count_data, json_file)
