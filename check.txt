@@ -1,0 +1,21 @@
+確認済みのこと
+pic_up_data.py
+・bed_data の各被験者，姿勢，タグに対する time と rssi のデータは正しいことを確認
+　（furushima 1 "E280116060000204AC6AD1FE" でデータを出力後，0,1 秒の時の bed_data の値を csv ファイルのデータと目で照らし合わせた．）
+
+
+average_data.py
+
+・avg_bed_data はすべての被験者，すべての姿勢，すべてのタグ毎のデータ数が一致している
+
+tag が存在しない場合：
+・avg_bed_dataにno_data_rssiの値がmaxの個数入っていることを確認->一応データ数を目でも確認OK
+・tag_count_dataの値:すべて0->OK
+
+tagが存在する場合：
+・avg_bed_data["furushima"]["1"]["E280116060000204AC6AD1FD"]で確認->一応データ数を目でも確認し大丈夫だった
+・0,1秒のときの平均を確認->電卓でも計算しOK
+・0,1秒のときの tag_count_dataの値もOK（bed_dataのその秒数のデータ数を目で数えて確認）
+
+・avg_bed_data["furushima"]["1"]["E280116060000204AC6AD0E6"]
+・データ取得数が0の場合の平均値確認->no_data_rssi入っている
