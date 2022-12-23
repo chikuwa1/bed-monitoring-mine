@@ -1,11 +1,11 @@
-確認済みのこと
+確認済みのことやコードメモ
+
 pic_up_data.py
 ・bed_data の各被験者，姿勢，タグに対する time と rssi のデータは正しいことを確認
 　（furushima 1 "E280116060000204AC6AD1FE" でデータを出力後，0,1 秒の時の bed_data の値を csv ファイルのデータと目で照らし合わせた．）
 
 
 average_data.py
-
 ・avg_bed_data はすべての被験者，すべての姿勢，すべてのタグ毎のデータ数が一致している
 
 tag が存在しない場合：
@@ -19,3 +19,26 @@ tagが存在する場合：
 
 ・avg_bed_data["furushima"]["1"]["E280116060000204AC6AD0E6"]
 ・データ取得数が0の場合の平均値確認->no_data_rssi入っている
+
+standardized_data.py
+・標準化
+list=[1,2,3,4,5,6,7,8,9,10]で以下を試す
+
+# StandardScaler クラスを使用して、データを標準化する
+sc = preprocessing.StandardScaler()
+sc.fit(np_list)
+standardized_list = sc.transform(np_list)
+list_v = list(standardized_list.reshape(-1))
+
+ー＞ちゃんと標準化されていることを確認
+ー＞standardized_data[tester][posture][tag]の内容もちゃんと標準化されていると考えられる
+
+
+
+
+plot_posture.py
+
+posture0ファイルの画像がすべて同じ色なのは，姿勢0のデータが全員同じデータだから
+（最後がmiyataさんだからmiyataさんの色でplotされてるデータのようになる）
+
+
