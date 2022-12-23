@@ -74,5 +74,5 @@ with open("bed_data.json", "w") as json_file:
 
 
 
-# print(len(bed_data["furushima"][1]["E280116060000204AC6AD1FE"][0]))
-# print(count_data["furushima"][1])
+# print(count_data["furushima"][1]["E280116060000204AC6AD1FE"])
+print(count_data["furushima"][1])
