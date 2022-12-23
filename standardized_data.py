@@ -1,3 +1,5 @@
+# 平均したrssi値を用いて標準化する
+
 import json
 from sklearn import preprocessing
 import numpy as np

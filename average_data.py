@@ -1,3 +1,6 @@
+# 各タグ，各時刻でrssi値を平均化する
+# 各タグ,各時刻のデータ数もカウントする
+
 import json
 
 posture_num = 7 # 姿勢数
@@ -49,7 +52,7 @@ for tester in tester_names:
             count = 0  # 毎秒のデータ数カウンター
             sum = 0.0  # 毎秒のrssi値の合計値
 
-            if tag in bed_data[tester][str(i)]:
+            if tag in bed_data[tester][str(i)]: # bed_dataにtagが存在するとき
 
                 while second <= max_second:
                     if idx < len(bed_data[tester][str(i)][tag]) :

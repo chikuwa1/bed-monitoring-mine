@@ -1,3 +1,5 @@
+# 試す用のpyファイル
+
 import json
 from sklearn import preprocessing
 import numpy as np
