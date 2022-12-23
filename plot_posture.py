@@ -39,7 +39,6 @@ for tester, tester_data in standardized_data.items():
 # 姿勢ごとの図をplot
 
 tester_index = {tester: i for i, tester in enumerate(tester_names)}
-scale = (-5,5) # 縦軸 横軸のスケール
 
 # 2つのタグの組み合わせ
 tag_combination = list(combinations(range(len(tag_names)), 2))
@@ -61,8 +60,8 @@ for posture, posture_data in posture_bed_data.items():
                 rssis1 = tester_data[tag_dict[x_tag]]
                 rssis2 = tester_data[tag_dict[y_tag]]
                 plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(tester_num)], marker='o', label = tester)
-                plt.xlim(scale)
-                plt.ylim(scale)
+                plt.xlim(-4, 4)
+                plt.ylim(-4, 4)
                 # plt.xticks(ticks_list)
                 # plt.yticks(ticks_list)
                 tester_num += 1
