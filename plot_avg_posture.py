@@ -35,6 +35,8 @@ for tester, tester_data in average_data.items():
     for posture, posture_data in tester_data.items():        
         posture_bed_data[posture][tester] = posture_data
 
+with open("posture_bed_data.json", "w") as json_file:
+    json.dump(posture_bed_data, json_file)
 
 # 姿勢ごとの図をplot
 
