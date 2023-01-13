@@ -50,7 +50,7 @@ for tester_name in tester_names:
             #小数点以下を切り捨て
             time = int(time)
            # 秒数を0～に変更し格納
-            time = time- min_time
+            time = time - min_time
 
             if time != second:
                 count.append(count_data_second)
