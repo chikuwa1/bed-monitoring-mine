@@ -47,92 +47,63 @@ for posture, posture_data in posture_bed_data.items():
                 
     each_posture_data[posture] = data
 
+ 
+# PCA
+from sklearn.decomposition import PCA
 
-A = each_posture_data["1"]
-    # 特異値分解SVDによる次元削除
-    # sは最初の2つが最も大きい特異値
+y=["E280116060000204AC6AD0EC","E280116060000204AC6AD0E6","E280116060000204AC6AD1FE","E280116060000204AC6AD1FD","E280116060000204AC6AC8F0","E280116060000204AC6AD1FC"]
+pca = PCA(n_components=2, random_state=0)
+reduced_pca = pca.fit_transform(each_posture_data["1"])
 
-n, p = A.shape
-U, s, VT = svd(A)
-V_svd = VT.T
+# 可視化
+Figure = plt.figure(figsize=(24, 7))
+ax1 = Figure.add_subplot(1,3,1)
+ax1.scatter(reduced_pca[:, 0], reduced_pca[:, 1],
+            c=y, cmap='jet', alpha=0.5)
 
-V_2 = np.delete(V_svd, np.s_[2:], 1)
+ax1.set_title("PCA")
 
-AV_2 = np.dot(A, V_2)
+plt.legend()
+file_name = 'PCA.png'.format(x_tag, y_tag)
+plt.savefig(os.path.join( f'posture_png/svd_png/posture1/', file_name))
+plt.clf() # ないとメモリが完全に解放されない
+plt.close()
 
-AV_2 = list(AV_2)
 
-dir_path_posture = f'posture_png/svd_png/posture{posture}/'
-if os.path.exists(dir_path_posture):
-    shutil.rmtree(dir_path_posture)
-os.mkdir(dir_path_posture)
-for tag_pair in tag_combination:
-    x_tag, y_tag = tag_pair
-    for i in range(len(AV_2)):    
-        rssis1 = AV_2[i][x_tag]
-        rssis2 = AV_2[i][y_tag]
-        plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(11)], marker='o')
+# A = each_posture_data["1"]
+#     # 特異値分解SVDによる次元削除
+#     # sは最初の2つが最も大きい特異値
+
+# n, p = A.shape
+# U, s, VT = svd(A)
+# V_svd = VT.T
+
+# V_2 = np.delete(V_svd, np.s_[2:], 1)
+
+# AV_2 = np.dot(A, V_2)
+
+# AV_2 = list(AV_2)
+
+# dir_path_posture = f'posture_png/svd_png/posture{posture}/'
+# if os.path.exists(dir_path_posture):
+#     shutil.rmtree(dir_path_posture)
+# os.mkdir(dir_path_posture)
+# for tag_pair in tag_combination:
+#     x_tag, y_tag = tag_pair
+#     for i in range(len(AV_2)):    
+#         rssis1 = AV_2[i][x_tag]
+#         rssis2 = AV_2[i][y_tag]
+#         plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(11)], marker='o')
         
-    plt.xlabel('Tag {}'.format(x_tag))
-    plt.ylabel('Tag {}'.format(y_tag))
-    plt.legend()
-    file_name = 'tag{}_tag{}.png'.format(x_tag, y_tag)
-    plt.savefig(os.path.join(dir_path_posture, file_name))
-    plt.clf() # ないとメモリが完全に解放されない
-    plt.close()
+#     plt.xlabel('Tag {}'.format(x_tag))
+#     plt.ylabel('Tag {}'.format(y_tag))
+#     plt.legend()
+#     file_name = 'tag{}_tag{}.png'.format(x_tag, y_tag)
+#     plt.savefig(os.path.join(dir_path_posture, file_name))
+#     plt.clf() # ないとメモリが完全に解放されない
+#     plt.close()
 
 
-
-# for posture, posture_data in posture_bed_data.items():
-
-#     dir_path_posture = f'posture_png/svd_png/posture{posture}/'
-#     if os.path.exists(dir_path_posture):
-#         shutil.rmtree(dir_path_posture)
-#     os.mkdir(dir_path_posture)
-#     for tag_pair in tag_combination:
-#         x_tag, y_tag = tag_pair
-    
-#         # fig, ax = plt.subplots()
-
-#         tester_num = 0
-#         for tester, tester_data in posture_data.items():
-#             try:
-#                 rssis1 = tester_data[tag_dict[x_tag]]
-#                 rssis2 = tester_data[tag_dict[y_tag]]
-#                 plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(tester_num)], marker='o', label = tester)
-#                 plt.xlim(-80.0, -60.0)
-#                 plt.ylim(-80.0, -60.0)
-                
-#                 tester_num += 1
-#             except:
-#                 print("姿勢：" + str(posture) + ", tag_pair:" + str(tag_pair) + ", " + str(tester))
-
-#         plt.xlabel('Tag {}'.format(x_tag))
-#         plt.ylabel('Tag {}'.format(y_tag))
-#         plt.legend()
-
-#         file_name = 'tag{}_tag{}.png'.format(x_tag, y_tag)
-#         plt.savefig(os.path.join(dir_path_posture, file_name))
-#         plt.clf() # ないとメモリが完全に解放されない
-#         plt.close()
-
-
-
-# print("This is U: " + str(U))
-# print("This is s: " + str(s))
-# print("This is V^T: " + str(VT))
-
-# u, s, vh = np.linalg.svd(data[data_num][tag_num])
-# s = np.diag(s)
-# posture_data_k = np.dot(np.dot(u, s), vh)
-
-# X, y = digits.data, digits.target
-
-# # PCA
-# from sklearn.decomposition import PCA
-
-# pca = PCA(n_components=2, random_state=0)
-# X_reduced_pca = pca.fit_transform(X)
 
 
 # # t-SNE
