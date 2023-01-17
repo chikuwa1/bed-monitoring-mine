@@ -58,7 +58,7 @@ for posture, posture_data in posture_bed_data.items():
             try:
                 rssis1 = tester_data[tag_dict[x_tag]]
                 rssis2 = tester_data[tag_dict[y_tag]]
-                plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(tester_num)], marker='o', label = tester)
+                plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(tester_num)], marker='o', label = "tester" + str(tester_num))
                 plt.xlim(-4, 4)
                 plt.ylim(-4, 4)
                 
@@ -68,7 +68,8 @@ for posture, posture_data in posture_bed_data.items():
 
         plt.xlabel('Tag {}'.format(x_tag))
         plt.ylabel('Tag {}'.format(y_tag))
-        plt.legend()
+        plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
+        plt.tight_layout()
 
         file_name = 'tag{}_tag{}.png'.format(x_tag, y_tag)
         plt.savefig(os.path.join(dir_path_posture, file_name))
