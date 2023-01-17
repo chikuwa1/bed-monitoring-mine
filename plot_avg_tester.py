@@ -34,7 +34,6 @@ tester_bed_data = average_data
 tag_combination = list(combinations(range(len(tag_names)), 2))
 
 for tester, tester_data in tester_bed_data.items():
-    print(tester_data)
     dir_path_tester = f'tester_png/average_limit_png/l_tester_{tester}/'
     if os.path.exists(dir_path_tester):
         shutil.rmtree(dir_path_tester)

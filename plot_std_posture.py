@@ -45,7 +45,7 @@ tag_combination = list(combinations(range(len(tag_names)), 2))
 
 for posture, posture_data in posture_bed_data.items():
 
-    dir_path_posture = f'posture_png/standardized_png/posture{posture}/'
+    dir_path_posture = f'posture_png/standardized_limit_png/l_posture{posture}/'
     if os.path.exists(dir_path_posture):
         shutil.rmtree(dir_path_posture)
     os.mkdir(dir_path_posture)
@@ -59,8 +59,8 @@ for posture, posture_data in posture_bed_data.items():
                 rssis1 = tester_data[tag_dict[x_tag]]
                 rssis2 = tester_data[tag_dict[y_tag]]
                 plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(tester_num)], marker='o', label = tester)
-                # plt.xlim(-4, 4)
-                # plt.ylim(-4, 4)
+                plt.xlim(-4, 4)
+                plt.ylim(-4, 4)
                 
                 tester_num += 1
             except:

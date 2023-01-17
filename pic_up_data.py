@@ -14,7 +14,7 @@ with open('tester_name.txt') as f: # 被験者名の読み込み
     tester_names = f.read().splitlines()
 
 # 姿勢0の際のファイル読み込み
-file_name = "/home/chiaki/bed-monitoring/csv/log1208/zero.csv"
+file_name = "csv/log1208/zero.csv"
 df_0 = pd.read_csv(file_name, usecols=columns)  # time,EPCはString型, RSSIはfloat64型
   
 bed_data = {} # データを保存する辞書
@@ -32,6 +32,7 @@ for tester_name in tester_names:
 
         # 最小のtime
         min_time = df["time"].min()
+        print(min_time)
         min_time = datetime.strptime(min_time, "%H:%M:%S.%f")
         min_time = int(min_time.timestamp())
 
@@ -75,4 +76,4 @@ with open("bed_data.json", "w") as json_file:
 
 
 # print(count_data["furushima"][1]["E280116060000204AC6AD1FE"])
-print(count_data["furushima"][1])
+# print(count_data["furushima"][1])
