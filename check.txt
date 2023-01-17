@@ -1,5 +1,8 @@
 確認済みのことやコードメモ
 
+全員分の全データは7494データ（姿勢0も被験者回カウントしている）
+
+
 pic_up_data.py
 ・bed_data の各被験者，姿勢，タグに対する time と rssi のデータは正しいことを確認
 　（furushima 1 "E280116060000204AC6AD1FE" でデータを出力後，0,1 秒の時の bed_data の値を csv ファイルのデータと目で照らし合わせた．）
@@ -52,3 +55,6 @@ posture0ファイルの画像がすべて同じ色なのは，姿勢0のデー�
 （最後がmiyataさんだからmiyataさんの色でplotされてるデータのようになる）
 
 
+
+posture_bed_data.csv
+testerはtester_name.txtの順にtester0~10

@@ -1,19 +1,38 @@
-# 試す用のpyファイル
-
 import json
-from sklearn import preprocessing
+from pandas import json_normalize
+import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+import os
 
-list_m = [1,2,3,4,5,6,7,8,9,10]
+with open("posture_bed_data.csv", "w") as f:
+    f.write("1")
+    f.write(", 2")
+    f.write("\n")
+    f.write("3")
 
-np_list = np.array(list_m).reshape(-1, 1)
-# StandardScaler クラスを使用して、データを標準化する
-sc = preprocessing.StandardScaler()
-sc.fit(np_list)
-standardized_list = sc.transform(np_list)
-list_v = list(standardized_list.reshape(-1))
 
-print(list_v)
+
+
+
+
+# # 試す用のpyファイル
+
+# import json
+# from sklearn import preprocessing
+# import numpy as np
+
+# list_m = [1,2,3,4,5,6,7,8,9,10]
+
+# np_list = np.array(list_m).reshape(-1, 1)
+# # StandardScaler クラスを使用して、データを標準化する
+# sc = preprocessing.StandardScaler()
+# sc.fit(np_list)
+# standardized_list = sc.transform(np_list)
+# list_v = list(standardized_list.reshape(-1))
+
+# print(list_v)
 
 
 
