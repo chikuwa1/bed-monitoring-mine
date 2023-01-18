@@ -93,7 +93,7 @@ for posture in range(posture_num):
     plt.close()
 
     # 寄与率
-    explained_variance_ratio_df = pd.DataFrame(svd.explained_variance_ratio_, index=["PC1", "PC2"])
+    explained_variance_ratio_df = pd.DataFrame(svd.explained_variance_ratio_)
     s_file.write("========== posture"+ str(posture) + " ==========\n")
     s_file.write("<第一主成分0，第二主成分1の寄与率>\n")
     s_file.write(str(explained_variance_ratio_df)+ "\n")
