@@ -3,7 +3,7 @@ import shutil
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-
+from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.decomposition import TruncatedSVD
 
@@ -12,13 +12,13 @@ tester_num = 11 # 被験者数
 
 # ファイルの確認
 # PCA
-dir_path_PCA = 'posture_png/pca_png/sc_pca_png'
+dir_path_PCA = 'posture_png/pca_png/ak_sc_pca_png'
 
 if os.path.exists(dir_path_PCA):
     shutil.rmtree(dir_path_PCA)
 os.mkdir(dir_path_PCA)
 
-p_file = open('sc_pca_contribution_rate.txt', 'w')
+p_file = open('ak_sc_pca_contribution_rate.txt', 'w')
 
 
 # SVD
@@ -39,8 +39,10 @@ for posture in range(posture_num):
     sc = StandardScaler()
     df_std = sc.fit_transform(df_rssis)
 
+    print(str(df_std))
+
     # PCA
-    pca = PCA(n_components=2)
+    pca = PCA(n_components=2, svd_solver="akpack")
     df_pca = pd.DataFrame(pca.fit_transform(df_std)) # 第一主成分0と第二主成分1がわかる
     
     df_pca['tester'] = df[df['posture'] == posture]['tester'].reset_index(drop=True)
