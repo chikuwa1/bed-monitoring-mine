@@ -34,7 +34,7 @@ tester_bed_data = average_data
 tag_combination = list(combinations(range(len(tag_names)), 2))
 
 for tester, tester_data in tester_bed_data.items():
-    dir_path_tester = f'tester_png/average_limit_png/l_tester_{tester}/'
+    dir_path_tester = f'tester_png/average_ln_png/l_tester_{tester}/'
     if os.path.exists(dir_path_tester):
         shutil.rmtree(dir_path_tester)
     os.mkdir(dir_path_tester)
@@ -48,15 +48,15 @@ for tester, tester_data in tester_bed_data.items():
                 rssis1 = posture_data[tag_dict[x_tag]]
                 rssis2 = posture_data[tag_dict[y_tag]]
                 plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(int(posture))], marker='o', label = "posture"+ posture)
-                plt.xlim(-80.0, -60.0)
-                plt.ylim(-80.0, -60.0)
+                plt.xlim(-80.0, -55.0)
+                plt.ylim(-80.0, -55.0)
                 
             except:
                 print("tester:" + str(tester) + ", tag_pair:" + str(tag_pair) + ", " + str(posture))
 
         plt.xlabel('Tag {}'.format(x_tag))
         plt.ylabel('Tag {}'.format(y_tag))
-        plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
+        # plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
         plt.tight_layout()
         file_name = 'tag{}_tag{}.png'.format(x_tag, y_tag)
         plt.savefig(os.path.join(dir_path_tester, file_name))

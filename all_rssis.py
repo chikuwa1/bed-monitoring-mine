@@ -1,3 +1,4 @@
+# 被験者別　全姿勢のplot
 import json
 import os
 import shutil
@@ -54,8 +55,8 @@ for tag_pair in tag_combination:
         rssis1 = df_tester[df_tester['tester'] == tester][tag_dict[x_tag]]
         rssis2 = df_tester[df_tester['tester'] == tester][tag_dict[y_tag]]
         plt.scatter(rssis1, rssis2, s=20, c=[cm.Paired(tester)], marker='o', label = "tester" + str(tester))
-        plt.xlim(-80.0, -60.0)
-        plt.ylim(-80.0, -60.0)
+        plt.xlim(-80.0, -55.0)
+        plt.ylim(-80.0, -55.0)
         
 
     plt.xlabel('Tag {}'.format(x_tag))
