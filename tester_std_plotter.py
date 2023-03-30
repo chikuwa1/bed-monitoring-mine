@@ -1,5 +1,6 @@
-# 被験者毎に姿勢のデータをplot
+# 被験者毎に姿勢の標準化したRSSI値データをplotする
 # 縦軸，横軸はそれぞれのタグのcombination
+# tester_png/standardized_png/tester_"被験者名"/に図を保存する
 
 import json
 import os

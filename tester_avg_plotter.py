@@ -1,5 +1,7 @@
 # 姿勢毎に被験者の平均化したRSSI値データをplotする
 # 縦軸，横軸はそれぞれのタグのcombination
+# tester_png/average_png/tester_"被験者名"/に図を保存する
+
 
 import json
 import os
