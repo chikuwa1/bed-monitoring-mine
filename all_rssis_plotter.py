@@ -1,5 +1,6 @@
 # 被験者別に全姿勢（もしくは姿勢0以外の姿勢）の平均RSSI値データをplotする
-# 全姿勢データの図はposture_png/al_rssis_png/に保存する
+# 縦軸，横軸はそれぞれのタグのcombination
+# 全姿勢データの図はposture_png/all_rssis_png/に保存する
 # 姿勢0以外の全姿勢データの図はposture_png/no0_rssis_png/に保存する
 
 import json
