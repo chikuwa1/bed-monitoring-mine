@@ -40,7 +40,7 @@ s_file = open('all_posture_svd_contribution_rate.txt', 'w')
 
 
 
-df = pd.read_csv("posture_bed_data.csv") # 値や表の形は大丈夫
+df = pd.read_csv("posture_bed_data.csv")
 df = pd.get_dummies(df, drop_first=True)
 
 df_rssis = df.drop(['posture', 'tester'], axis=1) # 各姿勢の全員分のrssiデータをタグごとにまとめたもの（各姿勢，各被験者名の情報なし）
