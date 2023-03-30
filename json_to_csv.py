@@ -1,3 +1,4 @@
+# jsonファイルをcsvファイルに変換
 import json
 import csv
 # jsonファイルの読み込み

@@ -1,3 +1,4 @@
+# 全被験者データを用いて姿勢別に出力（2つのタグを選択し2次元へ）
 import json
 import os
 import shutil
@@ -31,6 +32,7 @@ if os.path.exists(dir_path):
     shutil.rmtree(dir_path)
 os.mkdir(dir_path)
 
+# 姿勢0を入れない場合
 # dir_path_no0 = 'posture_png/_tester_png/'
 
 # if os.path.exists(dir_path_no0):
@@ -42,6 +44,7 @@ df = pd.read_csv("posture_bed_data.csv") # 値や表の形は大丈夫
 df = pd.get_dummies(df, drop_first=True)
 df_posture = df.drop(['tester'], axis=1) 
 
+#姿勢0を入れない場合
 # df_tester = df.drop(['posture'], axis=1) 
 # df_no0 = df[df['posture'] != 0]
 # df_tester_no0 = df_no0.drop(['posture'], axis=1) 
@@ -69,6 +72,7 @@ for tag_pair in tag_combination:
     plt.clf()
     plt.close()
 
+    # 姿勢0を入れない場合
     # for tester in range(len(tester_names)):       
     #     rssis1 = df_tester_no0[df_tester_no0['tester'] == tester][tag_dict[x_tag]]
     #     rssis2 = df_tester_no0[df_tester_no0['tester'] == tester][tag_dict[y_tag]]

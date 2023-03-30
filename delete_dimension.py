@@ -1,4 +1,5 @@
-import os
+#PCAorSVDを用いて次元削減した後に図出力
+ os
 import shutil
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -53,7 +54,6 @@ for posture in range(posture_num):
     plt.ylabel('1')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
     plt.tight_layout()
-    # plt.title('posture{}_PCA'.format(posture))
     file_name = 'posture{}_PCA.png'.format(posture)
     plt.savefig(os.path.join(dir_path_PCA, file_name))
     plt.clf()
@@ -86,7 +86,6 @@ for posture in range(posture_num):
     plt.ylabel('1')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
     plt.tight_layout()
-    # plt.title('posture{}_SVD'.format(posture))
     file_name = 'posture{}_SVD.png'.format(posture)
     plt.savefig(os.path.join(dir_path_SVD, file_name))
     plt.clf()
