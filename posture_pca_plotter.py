@@ -1,6 +1,6 @@
 # PCAを用いて次元削減し,姿勢ごとに被験者別に色分けして図を出力する
 # PCAの図の保存先:posture_png/pca_png/
-# PCAの寄与率・固有ベクトル:pca_contribution_rate.txt
+# PCAの寄与率・固有ベクトル:posture_pca_contribution_rate.txt
 
 import os
 import shutil
@@ -21,7 +21,7 @@ if os.path.exists(dir_path_PCA):
     shutil.rmtree(dir_path_PCA)
 os.mkdir(dir_path_PCA)
 
-p_file = open('pca_contribution_rate.txt', 'w')
+p_file = open('posture_pca_contribution_rate.txt', 'w')
 
 df = pd.read_csv("posture_bed_data.csv")
 df = pd.get_dummies(df, drop_first=True)
