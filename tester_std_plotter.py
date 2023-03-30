@@ -33,10 +33,13 @@ tag_combination = list(combinations(range(len(tag_names)), 2))
 
 for tester, tester_data in tester_bed_data.items():
 
-    dir_path_tester = f'tester_png/standardized_limit_png/l_tester_{tester}/'
+    dir_path_tester = f'tester_png/standardized_png/tester_{tester}/'
+    
+    # ディレクトリが存在していたら削除後、再度作成
     if os.path.exists(dir_path_tester):
         shutil.rmtree(dir_path_tester)
     os.mkdir(dir_path_tester)
+
     for tag_pair in tag_combination:
         x_tag, y_tag = tag_pair
 
@@ -49,7 +52,7 @@ for tester, tester_data in tester_bed_data.items():
                 plt.ylim(-4, 4)
                 
             except:
-                print("tester：" + str(tester) + ", tag_pair:" + str(tag_pair) + ", " + str(posture))
+                print("エラー箇所 > tester：" + str(tester) + ", tag_pair:" + str(tag_pair) + ", " + str(posture))
 
         plt.xlabel('Tag {}'.format(x_tag))
         plt.ylabel('Tag {}'.format(y_tag))
