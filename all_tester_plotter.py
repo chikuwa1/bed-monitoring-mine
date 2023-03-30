@@ -1,6 +1,6 @@
 # 全被験者データを用いて姿勢別に出力（2つのタグを選択し2次元へ）
 # 縦軸，横軸はそれぞれのタグのcombination
-# tester_png/all_tester_png/に図を保存する
+# tester_png/all_rssis_png/に図を保存する
 
 import json
 import os
@@ -32,7 +32,7 @@ for i, tag_name in enumerate(tag_names):
 
 # ファイルの確認
 # ディレクトリが存在していたら削除後、再度作成
-dir_path = 'tester_png/all_tester_png/'
+dir_path = 'tester_png/all_rssis_png/'
 
 if os.path.exists(dir_path):
     shutil.rmtree(dir_path)

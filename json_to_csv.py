@@ -1,4 +1,4 @@
-# posture_bed_data.jsonをcsvファイルに変換
+# posture_bed_data.jsonをposture_bed_data.csvに変換
 import json
 import csv
 
