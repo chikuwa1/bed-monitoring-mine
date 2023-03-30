@@ -1,4 +1,7 @@
 # PCA or SVDを用いて次元削減した後に図の出力
+# 結果->PCAの中で特異値分解SVDを使っていたので結果は変わらなかった
+# よってPCAだけ着目
+
 import os
 import shutil
 import pandas as pd
@@ -34,6 +37,7 @@ s_file = open('svd_contribution_rate.txt', 'w')
 df = pd.read_csv("posture_bed_data.csv") # 値や表の形は大丈夫
 df = pd.get_dummies(df, drop_first=True)
 
+# 次元削減と図の出力
 for posture in range(posture_num):
     df_posture = df[df['posture'] == posture]
     df_rssis = df_posture.drop(['posture', 'tester'], axis=1) # 各姿勢の全員分のrssiデータをタグごとにまとめたもの（各姿勢，各被験者名の情報なし）
@@ -43,15 +47,15 @@ for posture in range(posture_num):
     df_pca = pd.DataFrame(pca.fit_transform(df_rssis)) # 第一主成分0と第二主成分1がわかる
     
     df_pca['tester'] = df[df['posture'] == posture]['tester'].reset_index(drop=True)
-     #うまくできてそう->姿勢6で検証:df_pca各被験者のデータ数はlabel追加前のデータ数と一致を確認
     
+    # 図の出力
     for tester in range(tester_num):
         x_pca = df_pca[df_pca['tester'] == tester][0]
         y_pca = df_pca[df_pca['tester'] == tester][1]
         plt.scatter(x_pca, y_pca, s=20, c=[cm.Paired(tester)], marker='o', label = 'tester' + str(tester))
     
-    plt.xlabel('0')
-    plt.ylabel('1')
+    plt.xlabel('0') # 第一主成分
+    plt.ylabel('1') # 第二主成分
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
     plt.tight_layout()
     file_name = 'posture{}_PCA.png'.format(posture)
@@ -59,6 +63,7 @@ for posture in range(posture_num):
     plt.clf()
     plt.close()
 
+    #寄与率・固有ベクトルをテキストファイルに書き込む
     # 寄与率
     explained_variance_ratio_df = pd.DataFrame(pca.explained_variance_ratio_)
     p_file.write("========== posture"+ str(posture) + " ==========\n")
@@ -66,11 +71,13 @@ for posture in range(posture_num):
     p_file.write(str(explained_variance_ratio_df)+ "\n")
     p_file.write('\n')
 
-    # 各タグの寄与率
+    # 各タグの固有ベクトル
     loadings_df = pd.DataFrame(pca.components_.T, index=df_rssis.columns)
     p_file.write("<第一主成分0，第二主成分1に対する各タグの固有ベクトル>\n")
     p_file.write(str(loadings_df)+ "\n")
     p_file.write('\n')
+
+
 
     # SVD
     svd = TruncatedSVD(n_components=2)
@@ -82,8 +89,8 @@ for posture in range(posture_num):
         y_svd = df_svd[df_svd['tester'] == tester][1]
         plt.scatter(x_svd, y_svd, s=20, c=[cm.Paired(tester)], marker='o', label = 'tester' + str(tester))
     
-    plt.xlabel('0')
-    plt.ylabel('1')
+    plt.xlabel('0') # 第一主成分
+    plt.ylabel('1') # 第二主成分
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
     plt.tight_layout()
     file_name = 'posture{}_SVD.png'.format(posture)
@@ -91,6 +98,7 @@ for posture in range(posture_num):
     plt.clf()
     plt.close()
 
+    # 寄与率・固有ベクトルをテキストファイルに書き込む
     # 寄与率
     explained_variance_ratio_df = pd.DataFrame(svd.explained_variance_ratio_)
     s_file.write("========== posture"+ str(posture) + " ==========\n")
@@ -98,7 +106,7 @@ for posture in range(posture_num):
     s_file.write(str(explained_variance_ratio_df)+ "\n")
     s_file.write('\n')
 
-    # 各タグの寄与率
+    # 各タグの固有ベクトル
     loadings_df = pd.DataFrame(svd.components_.T, index=df_rssis.columns)
     s_file.write("<第一主成分0，第二主成分1に対する各タグの固有ベクトル>\n")
     s_file.write(str(loadings_df)+ "\n")
