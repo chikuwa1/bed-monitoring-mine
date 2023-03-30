@@ -1,5 +1,7 @@
-# csvファイルからEPC（タグ名）,time（時刻）,RSSI（電波強度）の３つのデータを抽し、jsonファイルに保存
+# csvファイルからEPC（タグ名）,time（時刻）,RSSI（電波強度）の３つのデータを抽出し、jsonファイルに保存
 # 各被験者，各姿勢ごとの1秒ごとのデータ取得数をカウントする
+# bed_data.jsonに被験者ごと,姿勢ごとのEPC（タグ名）,time（時刻）,RSSI（電波強度）を保存
+# count_dataには被験者ごと,姿勢ごとの毎秒のデータ数を格納(タグの区別なし)
 
 import pandas as pd
 from datetime import datetime
