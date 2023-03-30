@@ -1,5 +1,10 @@
 # PCA or SVDを用いて次元削減し,被験者別に色分けして図を出力する
 # 被験者ごとに全姿勢データを表示
+# PCAの図の保存先:posture_png/all_pca_png/
+# SVDの図の保存先:posture_png/all_svd_png/
+# PCAの寄与率・固有ベクトル:all_posture_pca_contribution_rate.txt
+# SVDの寄与率・固有ベクトル:all_posture_svd_contribution_rate.txt
+
 
 import os
 import shutil
