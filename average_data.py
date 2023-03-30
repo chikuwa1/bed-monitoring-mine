@@ -1,8 +1,10 @@
-# 各タグ，各時刻でrssi値を平均化する
+# 各タグ，各時刻でrssi値を平均化する(bed_data.jsonを利用)
 # 各タグ,各時刻のデータ数もカウントする
 
-# avg_bed_data{"被験者名":{ 姿勢番号 : {"tag" : [毎秒の平均RSSI] }}} -> 平均RSSIのリストはindexを秒数とした
-
+# avg_bed_data{"被験者名":{ "姿勢番号" : {"tag" : [毎秒の平均RSSI値] }}} -> 平均RSSIのリストはindexを秒数とした
+# tag_count_data{"被験者名":{ "姿勢番号" : {"tag" : [毎秒のRSSI値のデータ数] }}}
+# avg_bed_dataをavg_bed_data.jsonへ保存
+# tag_count_dataをtag_sec_count_data.jsonへ保存
 
 import json
 
@@ -123,7 +125,7 @@ for tester in tester_names:
 # 各タグごとの平均RSSI値
 with open("avg_bed_data.json", "w") as json_file:
     json.dump(avg_bed_data, json_file)
-    
+
 # 各タグごとのデータ観測数
 with open("tag_sec_count_data.json", "w") as json_file:
     json.dump(tag_count_data, json_file)
