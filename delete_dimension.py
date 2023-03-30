@@ -1,5 +1,5 @@
-#PCAorSVDを用いて次元削減した後に図出力
- os
+# PCA or SVDを用いて次元削減した後に図の出力
+import os
 import shutil
 import pandas as pd
 import matplotlib.pyplot as plt
