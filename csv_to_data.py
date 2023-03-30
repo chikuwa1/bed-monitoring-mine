@@ -1,15 +1,16 @@
 # csvファイルからEPC（タグ名）,time（時刻）,RSSI（電波強度）の３つのデータを抽出し、jsonファイルに保存
 # 各被験者，各姿勢ごとの1秒ごとのデータ取得数をカウントする
-# bed_data.jsonに被験者ごと,姿勢ごとのEPC（タグ名）,time（時刻）,RSSI（電波強度）を保存
+
+# bed_data{"被験者名":{ 姿勢番号 : {"tag" : [(time,RSSI)] }}}
+# bed_data.jsonにbed_dataを保存
 # count_dataには被験者ごと,姿勢ごとの毎秒のデータ数を格納(タグの区別なし)
+
 
 import pandas as pd
 from datetime import datetime
 import json
 
 posture_num = 7 # 姿勢数
-
-# bed_data{"被験者名":{ 姿勢番号 : {"tag" : [(time,RSSI)] }}}
 columns = ['time', 'EPC', 'RSSI']
 
 # 被験者名をファイルから読み込む
@@ -47,8 +48,6 @@ for tester_name in tester_names: # 被験者の数くり返す
 
 
         # 被験者ごと、姿勢ごとにデータ整理
-
-        # 辞書、リストを作成
         data = {}
         count = []
 
