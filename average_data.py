@@ -119,8 +119,11 @@ for tester in tester_names:
 
 
 # jsonファイルに保存
+
+# 各タグごとの平均RSSI値
 with open("avg_bed_data.json", "w") as json_file:
     json.dump(avg_bed_data, json_file)
-
+    
+# 各タグごとのデータ観測数
 with open("tag_sec_count_data.json", "w") as json_file:
     json.dump(tag_count_data, json_file)
