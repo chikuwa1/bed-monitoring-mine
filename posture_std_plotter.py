@@ -1,4 +1,4 @@
-# 姿勢毎に被験者の標準化したデータをplot
+# 姿勢毎に被験者の標準化したRSSI値データをplotする
 # 縦軸，横軸はそれぞれのタグのcombination
 
 import json
@@ -11,6 +11,8 @@ import matplotlib.cm as cm
 
 posture_num = 7 # 姿勢数
 
+
+# ファイルの読み込み
 with open("standardized_data.json", "r") as json_file:
     standardized_data = json.load(json_file)
 
@@ -20,10 +22,14 @@ with open('tester_name.txt') as f: # 被験者名の読み込み
 with open('tag_name.txt', 'r') as f: # タグ名の読み込み
     tag_names = f.readlines()
 
-tag_dict = {} # tagの名前を0から順に対応させる
+
+# tag名を0から順に対応させる
+tag_dict = {}
 for i, tag_name in enumerate(tag_names):
     tag_dict[i] = tag_name.strip()
 
+
+# standardized_dataを{"姿勢番号":{ "被験者名" : {"tag" : [毎秒の平均RSSI値を標準化した値] }}}の形として格納
 posture_bed_data = {}
 
 for i in range(posture_num):
@@ -45,10 +51,13 @@ tag_combination = list(combinations(range(len(tag_names)), 2))
 
 for posture, posture_data in posture_bed_data.items():
 
-    dir_path_posture = f'posture_png/standardized_limit_png/l_posture{posture}/'
+    dir_path_posture = f'posture_png/standardized_png/posture{posture}/'
+    
+    # ディレクトリが存在していたら削除後、再度作成
     if os.path.exists(dir_path_posture):
         shutil.rmtree(dir_path_posture)
     os.mkdir(dir_path_posture)
+
     for tag_pair in tag_combination:
         x_tag, y_tag = tag_pair
     
@@ -64,7 +73,7 @@ for posture, posture_data in posture_bed_data.items():
                 
                 tester_num += 1
             except:
-                print("姿勢：" + str(posture) + ", tag_pair:" + str(tag_pair) + ", " + str(tester))
+                print("エラー箇所 > 姿勢：" + str(posture) + ", tag_pair:" + str(tag_pair) + ", " + str(tester))
 
         plt.xlabel('Tag {}'.format(x_tag))
         plt.ylabel('Tag {}'.format(y_tag))

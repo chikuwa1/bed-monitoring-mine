@@ -1,4 +1,4 @@
-# 姿勢毎に被験者の平均化したデータをplotする
+# 姿勢毎に被験者の平均化したRSSI値データをplotする
 # 縦軸，横軸はそれぞれのタグのcombination
 
 import json
