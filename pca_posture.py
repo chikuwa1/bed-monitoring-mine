@@ -1,3 +1,8 @@
+# PCA を用いて次元削減し,姿勢別に色分けして図を出力する
+# 姿勢ごとに全被験者データを表示
+# PCAの図の保存先:tester_png/all_pca_png/
+# PCAの寄与率・固有ベクトル:all_tester_pca_contribution_rate.txt
+
 import os
 import shutil
 import pandas as pd
@@ -11,20 +16,22 @@ posture_num = 7 # 姿勢数
 tester_num = 11 # 被験者数
 
 # ファイルの確認
-# PCA
-dir_path_PCA = 'tester_png/sc_pca_png'
+# ディレクトリが存在していたら削除後、再度作成
+dir_path_PCA = 'tester_png/all_pca_png'
 
 if os.path.exists(dir_path_PCA):
     shutil.rmtree(dir_path_PCA)
 os.mkdir(dir_path_PCA)
 
-p_file = open('all_sc_pca_contribution_rate.txt', 'w')
+p_file = open('all_tester_pca_contribution_rate.txt', 'w')
 
 
 df = pd.read_csv("posture_bed_data.csv") # 値や表の形は大丈夫
 df = pd.get_dummies(df, drop_first=True)
 
 df_rssis = df.drop(['posture', 'tester'], axis=1) # 各姿勢の全員分のrssiデータをタグごとにまとめたもの（各姿勢，各被験者名の情報なし）
+
+# 図の出力
 # 標準化
 sc = StandardScaler()
 df_std = sc.fit_transform(df_rssis)
@@ -33,7 +40,6 @@ pca = PCA(n_components=2)
 df_pca = pd.DataFrame(pca.fit_transform(df_std)) # 第一主成分0と第二主成分1がわかる
 
 df_pca['posture'] = df['posture']
- #うまくできてそう->姿勢6で検証:df_pca各被験者のデータ数はlabel追加前のデータ数と一致を確認
 
 for posture in range(posture_num):
     x_pca = df_pca[df_pca['posture'] == posture][0]
@@ -46,18 +52,19 @@ plt.xlabel('0')
 plt.ylabel('1')
 plt.legend(loc='upper left', bbox_to_anchor=(1, 1.05))
 plt.tight_layout()
-# plt.title('posture{}_PCA'.format(posture))
-file_name = 'all_posture_sc_PCA.png'
+file_name = 'all_tester_PCA.png'
 plt.savefig(os.path.join(dir_path_PCA, file_name))
 plt.clf()
 plt.close()
+
+# 寄与率・固有ベクトルをテキストファイルに書き込む
 # 寄与率
 explained_variance_ratio_df = pd.DataFrame(pca.explained_variance_ratio_)
 p_file.write("========== posture"+ str(posture) + " ==========\n")
 p_file.write("<第一主成分0，第二主成分1の寄与率>\n")
 p_file.write(str(explained_variance_ratio_df)+ "\n")
 p_file.write('\n')
-# 各タグの寄与率
+# 各タグの固有ベクトル
 loadings_df = pd.DataFrame(pca.components_.T, index=df_rssis.columns)
 p_file.write("<第一主成分0，第二主成分1に対する各タグの固有ベクトル>\n")
 p_file.write(str(loadings_df)+ "\n")

@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.cm as cm
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 
 
 posture_num = 7 # 姿勢数
@@ -33,8 +34,13 @@ df_rssis = df.drop(['posture', 'tester'], axis=1) # 各姿勢の全員分のrssi
 
 
 # 図の出力
+# 標準化
+sc = StandardScaler()
+df_std = sc.fit_transform(df_rssis)
+#PCA
 pca = PCA(n_components=2)
 df_pca = pd.DataFrame(pca.fit_transform(df_rssis))
+
 df_pca['tester'] = df['tester'].reset_index(drop=True)
 
 for tester in range(tester_num):
