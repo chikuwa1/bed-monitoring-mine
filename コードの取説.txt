@@ -1,0 +1,106 @@
+各ファイルの用途と出力結果
+
+all_posture_pca.py (PCA)
+# PCA を用いて次元削減し,被験者別に色分けして図を出力する
+
+ 画像:posture_png/all_pca_png/
+ all_posture_pca_contribution_rate.txt
+
+
+all_posture_plotter.py
+# 被験者別に全姿勢（もしくは姿勢0以外の姿勢）の平均RSSI値データをplotする
+
+ 全姿勢データ画像:posture_png/all_rssis_png/に保存する
+ 姿勢0以外の全姿勢データ画像:posture_png/no0_rssis_png/に保存する
+
+
+all_tester_pca.py(PCA)
+# PCA を用いて次元削減し,姿勢別に色分けして図を出力する
+
+ 画像:tester_png/all_pca_png/
+ all_tester_pca_contribution_rate.txt
+
+
+all_tester_plotter.py
+# 全被験者データを用いて姿勢別に出力（2つのタグを選択し2次元へ）
+
+ 画像:tester_png/all_rssis_png/
+
+
+average_data.py
+# 各タグ，各時刻でrssi値を平均化する(bed_data.jsonを利用)
+# 各タグ,各時刻のデータ数もカウントする
+
+ avg_bed_data.json
+ tag_sec_count_data.json
+
+
+csv_to_data.py
+# csvファイルからEPC（タグ名）,time（時刻）,RSSI（電波強度）の３つのデータを抽出し、jsonファイルに保存
+# 各被験者，各姿勢ごとの1秒ごとのデータ取得数をカウントする
+
+ bed_data.json
+
+
+json_to_csv.py
+# posture_bed_data.jsonをposture_bed_data.csvに変換
+
+ posture_bed_data.csv
+
+
+posture_avg_plotter.py
+# 姿勢毎に被験者の平均化したRSSI値データをplotする
+
+ 画像:posture_png/average_png/posture"姿勢番号"
+ posture_bed_data.json
+
+
+posture_pca_plotter.py(PCA)
+# PCAを用いて次元削減し,姿勢ごとに被験者別に色分けして図を出力する
+
+ 画像:posture_png/pca_png/
+ posture_pca_contribution_rate.txt
+
+
+posture_std_plotter.py
+# 姿勢毎に被験者の標準化したRSSI値データをplotする
+
+ 画像:posture_png/standardized_png/posture"姿勢番号"
+
+
+standardized_data.py
+# 平均したrssi値を用いて標準化する(avg_bed_data.json利用)
+
+ standardized_data.json
+
+
+tester_avg_plotter.py
+# 姿勢毎に被験者の平均化したRSSI値データをplotする
+
+ 画像:tester_png/average_png/tester_"被験者名"
+
+
+tester_pca_plotter.py
+# PCAを用いて次元削減し,被験者ごとに姿勢別に色分けして図を出力する
+
+ 画像:tester_png/pca_png/
+ tester_pca_contribution_rate.txt
+
+
+tester_std_plotter.py
+# 被験者毎に姿勢の標準化したRSSI値データをplotする
+
+ 画像:tester_png/standardized_png/tester_"被験者名"
+
+
+tester_name.txt
+# 被験者名
+
+tag_name.txt
+# タグ名
+
+check.txt
+# 各ファイル実行時に確認した事項のメモ
+
+tester_number.txt
+# 被験者の番号と体格

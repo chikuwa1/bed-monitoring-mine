@@ -1,6 +1,7 @@
 # 姿勢毎に被験者の平均化したRSSI値データをplotする
 # 縦軸，横軸はそれぞれのタグのcombination
 # posture_png/average_png/posture"姿勢番号"/に図を保存する
+# posture_bed_dataをposture_bed_data.jsonへ保存する
 
 import json
 import os
