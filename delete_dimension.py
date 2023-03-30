@@ -1,4 +1,9 @@
 # PCA or SVDを用いて次元削減し,姿勢ごとに被験者別に色分けして図を出力する
+# PCAの図の保存先:posture_png/pca_png/
+# SVDの図の保存先:posture_png/svd_png/
+# PCAの寄与率・固有ベクトル:pca_contribution_rate.txt
+# SVDの寄与率・固有ベクトル:svd_contribution_rate.txt
+
 # 結果->PCAの中で特異値分解SVDを使っていたので結果は変わらなかった
 # よってPCAだけ着目
 
